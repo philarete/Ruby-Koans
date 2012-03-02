@@ -31,6 +31,27 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 def score(dice)
   # You need to write this method
+  score = 0
+  dicehash = Hash.new(0)
+  dice.each do |d|
+     dicehash[d] += 1
+  end
+
+  # ones
+  quot, rem = dicehash[1].divmod(3)
+  score += quot * 1000 + rem * 100
+
+  # fives
+  quot, rem = dicehash[5].divmod(3)
+  score += quot * 500 + rem * 50
+
+  # other rolls
+  score += dicehash[2].div(3) * 200
+  score += dicehash[3].div(3) * 300
+  score += dicehash[4].div(3) * 400
+  score += dicehash[6].div(3) * 600
+
+  return score
 end
 
 class AboutScoringProject < EdgeCase::Koan

@@ -13,12 +13,26 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
 class Proxy
+
+  attr_reader :messages
+
   def initialize(target_object)
     @object = target_object
-    # ADD MORE CODE HERE
+    @messages = []
   end
 
-  # WRITE CODE HERE
+  def method_missing (m, *args)
+    @messages << m
+    @object.send(m, *args)
+  end
+
+  def called? (m)
+    @messages.include?(m)
+  end
+
+  def number_of_times_called (m)
+    @messages.select {|x| x == m}.size
+  end
 end
 
 # The proxy object should pass the following Koan:

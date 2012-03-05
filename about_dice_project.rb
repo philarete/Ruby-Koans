@@ -8,7 +8,8 @@ class DiceSet
    def roll (howmany)
       @values = []
       howmany.times do 
-         @values << rand(1..6)
+         #@values << rand(1..6)
+         @values << rand(6) + 1
       end
    end
 end
